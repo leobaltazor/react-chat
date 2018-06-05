@@ -8,9 +8,9 @@ class AuthLayout extends Component {
 
   render() {
     console.log(this.props);
-    const router = [];
+    const { routers } = this.props
     return <section>
-      {router.map((route, index) => (
+      {routers.map((route, index) => (
         <Route
           exact={route.exact}
           path={route.path}
