@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 import { Router, Route } from "react-router";
 import routes from "./router";
-import './App.css';
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -23,3 +23,4 @@ class App extends Component {
 }
 
 export default App;
+

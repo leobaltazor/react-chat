@@ -22,6 +22,8 @@ function auth(state = initAuth, action) {
 	return state;
 }
 
+import { request } from "./request"
+
 export default combineReducers({
 	auth,
 	router: routerReducer
