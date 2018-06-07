@@ -3,55 +3,58 @@ import { Route, Link } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from "react-redux";
 import { setAuthParams } from "../../actions";
+import Preloader from "../../component/preloader.js";
 
 
 class Auth extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: "",
-      password: ""
-    }
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			login: "",
+			password: ""
+		}
+	}
 
-  onInput = (val, key) => this.setState({ [key]: val });
+	onInput = (val, key) => this.setState({ [key]: val });
 
-  auth = e => {
-    e.preventDefault();
-    const { login, password } = this.state;
-    this.props.setAuthParams(login, password);
-  }
+	auth = e => {
+		e.preventDefault();
+		const { login, password } = this.state;
+		this.props.setAuthParams(login, password);
+	}
 
-  render() {
-    const { login, password } = this.state;
+	render() {
+		const { login, password } = this.state;
+		const { status } = this.props;
 
-    return <section className="auth-form">
-      <TextField
-        label="email"
-        margin="normal"
-        value={login}
-        onChange={e => this.onInput(e.target.value, "login")}
-      />
-      <TextField
-        label="password"
-        type="password"
-        margin="normal"
-        value={password}
-        onChange={e => this.onInput(e.target.value, "password")}
-      />
-      <Button variant="contained" color="primary" onClick={this.auth}>
-        AUTH
+		return <section className="auth-form">
+			{status ? <Preloader /> : ""}
+			<TextField
+				label="email"
+				margin="normal"
+				value={login}
+				onChange={e => this.onInput(e.target.value, "login")}
+			/>
+			<TextField
+				label="password"
+				type="password"
+				margin="normal"
+				value={password}
+				onChange={e => this.onInput(e.target.value, "password")}
+			/>
+			<Button variant="contained" color="primary" onClick={this.auth}>
+				AUTH
       </Button>
-    </section>
-  }
+		</section>
+	}
 }
 
 const mapStateToProps = state => ({
-
+	status: state.auth.status
 });
 
 const mapDispatchToProps = dispatch => ({
-  setAuthParams: (login, password) => dispatch(setAuthParams(login, password))
+	setAuthParams: (login, password) => dispatch(setAuthParams(login, password))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
