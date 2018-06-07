@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Link } from 'react-router-dom';
+import { connect } from "react-redux";
 
 class AuthLayout extends Component {
   constructor(props) {
@@ -7,10 +8,9 @@ class AuthLayout extends Component {
   }
 
   render() {
-    console.log(this.props);
-    const router = [];
+    const { routers, requestStatus } = this.props
     return <section>
-      {router.map((route, index) => (
+      {routers.map((route, index) => (
         <Route
           exact={route.exact}
           path={route.path}
@@ -24,5 +24,7 @@ class AuthLayout extends Component {
   }
 
 }
+
+
 
 export default AuthLayout;

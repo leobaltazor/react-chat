@@ -14,7 +14,7 @@ import registerServiceWorker from './registerServiceWorker';
 const history = createHistory();
 const middleware = routerMiddleware(history);
 
-const store = createStore(
+export const store = createStore(
   reducer,
   compose(applyMiddleware(middleware))
 );
