@@ -10,6 +10,8 @@ const initAuth = {
 	errorMsg: ""
 }
 
+
+
 function auth(state = initAuth, action) {
 	console.log(action)
 	if (action.type === SET_AUTH_PARAMS) {
@@ -21,6 +23,8 @@ function auth(state = initAuth, action) {
 	}
 	return state;
 }
+
+import { request } from "./request"
 
 import { request } from "./request"
 
