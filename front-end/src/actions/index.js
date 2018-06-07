@@ -7,11 +7,13 @@ export const setAuthParams = (login, pass) => {
 	xhr.open("POST", "http://localhost:3001/api/auth");
 	xhr.setRequestHeader("Content-type", "Application/json");
 	xhr.onload = function () {
-		store.dispatch(push("/"));
+		const res = JSON.parse(this.responseText);
 		store.dispatch({
 			type: SET_AUTH_PARAMS,
-			status: false
+			status: false,
+			token: res.token
 		});
+		store.dispatch(push("/"));
 	}
 	const body = JSON.stringify({
 		login, pass
@@ -23,4 +25,14 @@ export const setAuthParams = (login, pass) => {
 		type: SET_AUTH_PARAMS,
 		status: true
 	};
+}
+
+
+export const logout = () => {
+	console.log(123);
+	localStorage.removeItem("token");
+	return {
+		type: SET_AUTH_PARAMS,
+		token: null
+	}
 }
