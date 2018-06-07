@@ -22,14 +22,17 @@ app.post("/api/auth", function (req, res) {
 				if (error) {
 					appFB.auth()
 						.createUserWithEmailAndPassword(login, pass)
+						.then(() => res.json({ token: login + Math.random() }))
 						.catch(function (error) {
-							if (!error) {
-								const key = Math.random();
-
+							if (error) {
+								res.json({ token: "", message: error.message });
 							}
 						});
+				} else {
 				}
 			});
+	} else {
+		res.json({ token: "", message: "not email or password" });
 	}
 	// res.json({ token: "" });
 });

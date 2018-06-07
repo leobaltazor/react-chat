@@ -1,5 +1,6 @@
 import { store } from "../index";
 import { push } from "react-router-redux"
+import { setTimeout } from "timers";
 
 export const SET_AUTH_PARAMS = "SET_AUTH_PARAMS";
 export const setAuthParams = (login, pass) => {
@@ -8,12 +9,16 @@ export const setAuthParams = (login, pass) => {
 	xhr.setRequestHeader("Content-type", "Application/json");
 	xhr.onload = function () {
 		const res = JSON.parse(this.responseText);
-		store.dispatch({
-			type: SET_AUTH_PARAMS,
-			status: false,
-			token: res.token
-		});
-		store.dispatch(push("/"));
+		setTimeout(() => {
+			store.dispatch({
+				type: SET_AUTH_PARAMS,
+				status: false,
+				token: res.token,
+				errorMsg: res.message
+			});
+			res.token && store.dispatch(push("/"));
+		}, 1000)
+
 	}
 	const body = JSON.stringify({
 		login, pass
@@ -36,3 +41,8 @@ export const logout = () => {
 		token: null
 	}
 }
+
+export const okError = () => ({
+	type: SET_AUTH_PARAMS,
+	errorMsg: ""
+})

@@ -6,7 +6,8 @@ import {
 
 const initAuth = {
 	status: false,
-	token: localStorage.getItem("token")
+	token: localStorage.getItem("token"),
+	errorMsg: ""
 }
 
 function auth(state = initAuth, action) {

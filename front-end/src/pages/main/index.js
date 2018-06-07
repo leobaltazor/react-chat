@@ -6,8 +6,12 @@ import { logout } from "../../actions";
 
 class Profiles extends Component {
 
-	componentWillReceiveProps(){
-		
+	componentWillReceiveProps(props) {
+		if (!props.token) {
+			this.props.redirect("/auth");
+		} else {
+			localStorage.setItem("token", this.props.token);
+		}
 	}
 
 	componentDidMount() {
